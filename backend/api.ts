@@ -68,13 +68,13 @@ class api {
     //output: TimeMapRequestDepartureSearch
     async generateTimeMapRequestDepartureSearch(address : string, transport : TransportationType, time : number, id : string) {
         const data1 = await test.geocode(address);
-    
+
         const longitude: number = data1[0];
         const latitute: number = data1[1];
         let coordinates : number[] = [];
         coordinates.push(latitute);
         coordinates.push(longitude);
-        
+
         const departure_search: TimeMapRequestDepartureSearch = {
             id: id,
             departure_time: new Date().toISOString(),
@@ -86,7 +86,7 @@ class api {
 
         return departure_search;
     }
-    
+
     //input: list of TimeMapDepartureSearch (list of locations, see generateTimeMapRequestDepartureSearch for more info)
     //output: intersection of the isochrones for every location
     async generateIntersection(addresses : TimeMapRequestDepartureSearch[]) {
@@ -110,37 +110,36 @@ class api {
 
 const test = new api();
 
-async function testStuff() {
-    const data22 = await test.geocode("5 Gilmore Street, Cabramatta");
-    
+// async function testStuff() {
+//     // const data22 = await test.geocode("5 Gilmore Street, Cabramatta");
 
-    const BITCH = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
-    console.log(BITCH);
-    const data1 = await test.generateIsochrones(BITCH);
+//     // const BITCH = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
+//     // console.log(BITCH);
+//     // const data1 = await test.generateIsochrones(BITCH);
 
-    const FUCK: TimeMapRequestDepartureSearch = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
+//     const FUCK: TimeMapRequestDepartureSearch = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
 
-    const SHIT: TimeMapRequestDepartureSearch = {
-        id: '2',
-        departure_time: new Date().toISOString(),
-        travel_time: 30 * 60,
-        coords: { lat: -34.00, lng: 151.00 },
-        transportation: { type: "public_transport" },
-        properties: ['is_only_walking'],
-    };
+//     const SHIT: TimeMapRequestDepartureSearch = {
+//         id: '2',
+//         departure_time: new Date().toISOString(),
+//         travel_time: 30 * 60,
+//         coords: { lat: -34.00, lng: 151.00 },
+//         transportation: { type: "public_transport" },
+//         properties: ['is_only_walking'],
+//     };
 
-    let addresses : TimeMapRequestDepartureSearch[] = [];
-    addresses.push(FUCK);
-    addresses.push(SHIT);
+//     let addresses : TimeMapRequestDepartureSearch[] = [];
+//     addresses.push(FUCK);
+//     addresses.push(SHIT);
 
-    const dataFUCK = await test.generateIntersection(addresses);
-    console.log(dataFUCK);
+//     const dataFUCK = await test.generateIntersection(addresses);
+//     console.log(dataFUCK);
 
 
-    console.log(data22);
-    console.log(data1);
-}
+//     // console.log(data22);
+//     // console.log(data1);
+// }
 
-testStuff();
+//testStuff();
 
 export default new api();
