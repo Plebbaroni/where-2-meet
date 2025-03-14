@@ -4,7 +4,10 @@ RUNS THE SERVER AND STUFF
 import express, { Request, Response } from "express";
 import cors from "cors";
 import router from "./routes"
+import * as dotenv from 'dotenv';
 
+
+dotenv.config();
 const app = express();
 const SERVER_PORT = 5180;
 
