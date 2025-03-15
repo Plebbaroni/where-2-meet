@@ -1,5 +1,4 @@
 import { MapPinIcon } from "@heroicons/react/24/outline";
-import pyramidIcon from "../assets/react.svg";
 import classes from './Sidebar.module.css';
 
 export type SidebarProps = {
