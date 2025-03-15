@@ -9,6 +9,7 @@ import {
     TransportationType,
     TravelTimeClient,
     TimeMapRequestUnionOrIntersection,
+    TimeMapResponseShape, 
     } from 'traveltime-api';
 import express, { Request, Response } from "express";
 import api from './api';
@@ -53,6 +54,17 @@ class controller {
             return;
         }
     }
+
+    async biggestShell(shapes : TimeMapResponseShape[]) { 
+        var max = 0;
+        for (var i = 0; i < shapes.length; i++) {
+            if (shapes[i].shell.length > shapes[max].shell.length) {
+                max = i;
+            }
+        }
+        return shapes[max].shell;
+    }
 }
+
 
 export default new controller();
