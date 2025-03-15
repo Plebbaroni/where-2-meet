@@ -9,11 +9,42 @@ import {
     TransportationType,
     TravelTimeClient,
     TimeMapRequestUnionOrIntersection,
-    TimeMapResponseShape, 
+    TimeMapResponseShape,
+    TimeMapResponseResult,
+    Coords
     } from 'traveltime-api';
 import express, { Request, Response } from "express";
 import api from './api';
 import {inputObject} from './interfaces'
+import polylabel from 'polylabel';
+
+
+  async function biggestShell(shapes : TimeMapResponseResult[]) {
+    try {
+        for (const isochrone of shapes) {
+            if (isochrone.search_id === "intersection of isochrones") {
+                let max = null;
+                let maxlen = 0;
+                for (const shape of isochrone.shapes) {
+                    if (shape.shell.length > maxlen) {
+                        maxlen = shape.shell.length;
+                        max = shape.shell;
+                    }
+                }
+                return max;
+            }
+        }
+        return null;
+    } catch (e) {
+        console.error('error', e);
+    }
+}
+
+async function getBiggestMean(coords:Coords[]) {
+    const coordsArr: number[][] = coords.map(({ lat, lng }): [number, number] => [lat, lng]);
+    const res = await polylabel([coordsArr], 1.0);
+    return res;
+}
 
 class controller {
     //useless route, just showcases how to link frontend and backend kinda
@@ -21,7 +52,7 @@ class controller {
         res.status(200).send({message:"hello"});
     }
 
-    async getIntersections(req:Request, res:Response) {
+    async getIntersectionsAndPlaces(req:Request, res:Response) {
         try {
             /*
                 i'll assume that the frontend sends a list of request structs, each request struct
@@ -36,9 +67,21 @@ class controller {
                 i++;
             }
             const intersection = await api.generateIntersection(timeMapArray);
-            res.status(200).send({intersection: intersection});
+            const biggestshellvar = await biggestShell(intersection);
+            if (biggestshellvar === null || biggestshellvar === undefined) {
+                console.error('wtf');
+                return;
+            }
+            const mean = await getBiggestMean(biggestshellvar);
+            const placesData = await api.googlePlaces([mean[1], mean[0]]);
+            res.status(200).send({
+                intersection: intersection,
+                places: placesData.places
+            });
+
             return;
         } catch (e) {
+            console.error(e);
             res.status(400).send({error: e});
             return;
         }
@@ -53,16 +96,6 @@ class controller {
             res.status(400).send({error: e});
             return;
         }
-    }
-
-    async biggestShell(shapes : TimeMapResponseShape[]) { 
-        var max = 0;
-        for (var i = 0; i < shapes.length; i++) {
-            if (shapes[i].shell.length > shapes[max].shell.length) {
-                max = i;
-            }
-        }
-        return shapes[max].shell;
     }
 }
 
