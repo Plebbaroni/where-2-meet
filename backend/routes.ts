@@ -7,5 +7,7 @@ import controller from "./controller"
 const router = express.Router();
 
 router.get("/hello", controller.hello);
+router.get("/intersections", controller.getIntersections);
+router.post("/places", controller.getPlaces);
 
 export default router;

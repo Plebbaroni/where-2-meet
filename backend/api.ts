@@ -6,6 +6,7 @@ TransportationType,
 TravelTimeClient,
 TimeMapRequestUnionOrIntersection,
 } from 'traveltime-api';
+import { Loader } from "@googlemaps/js-api-loader"
 import * as dotenv from 'dotenv'
 
 dotenv.config()
@@ -26,11 +27,20 @@ if (
     process.exit(1);
 }
 
+if (
+    process.env["GOOGLE_MAPS_KEY"] === undefined ||
+    process.env["GOOGLE_MAPS_KEY"] === ""
+) {
+    console.log("NO GOOGLE KEY");
+    process.exit(1);
+}
+
 const travelTimeClient = new TravelTimeClient({
     applicationId: process.env["TRAVELTIME_APPLICATION_ID"],
     apiKey: process.env["TRAVELTIME_API_KEY"],
 });
 
+const google_key:string = process.env["GOOGLE_MAPS_KEY"];
 class api {
     //input: address
     //ouput: longitude and latitute of first result
@@ -68,13 +78,13 @@ class api {
     //output: TimeMapRequestDepartureSearch
     async generateTimeMapRequestDepartureSearch(address : string, transport : TransportationType, time : number, id : string) {
         const data1 = await test.geocode(address);
-    
+
         const longitude: number = data1[0];
         const latitute: number = data1[1];
         let coordinates : number[] = [];
         coordinates.push(latitute);
         coordinates.push(longitude);
-        
+
         const departure_search: TimeMapRequestDepartureSearch = {
             id: id,
             departure_time: new Date().toISOString(),
@@ -86,7 +96,7 @@ class api {
 
         return departure_search;
     }
-    
+
     //input: list of TimeMapDepartureSearch (list of locations, see generateTimeMapRequestDepartureSearch for more info)
     //output: intersection of the isochrones for every location
     async generateIntersection(addresses : TimeMapRequestDepartureSearch[]) {
@@ -106,41 +116,90 @@ class api {
             throw (e);
         }
     };
+
+    async googlePlaces(coordinates : number[]) {
+        const requestBody = {
+            includedTypes: [
+                "restaurant",
+                "amusement_park",
+                "cafe",
+                "shopping_mall",
+                "park",
+                "movie_theater",
+                "bowling_alley",
+                "zoo",
+                "art_gallery",
+                "campground",
+                "museum",
+            ],
+            maxResultCount: 10,
+            locationRestriction: {
+                circle: {
+                    center: {
+                        //still assuming coordinates are flipped here
+                        latitude: coordinates[1],
+                        longitude: coordinates[0]
+                    },
+                    radius: 500.0
+                }
+            }
+        };
+
+        try {
+            const response = await fetch("https://places.googleapis.com/v1/places:searchNearby", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Goog-Api-Key": google_key,
+                    "X-Goog-FieldMask": "places.displayName,places.location,places.primaryType"
+                },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${await response.text()}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            throw e;
+        }
+    }
 }
+
 
 const test = new api();
 
-async function testStuff() {
-    const data22 = await test.geocode("5 Gilmore Street, Cabramatta");
-    
+//  async function testStuff() {
+//     const data22 = await test.geocode("5 Gilmore Street, Cabramatta");
 
-    const BITCH = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
-    console.log(BITCH);
-    const data1 = await test.generateIsochrones(BITCH);
+//     // const BITCH = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
+//     // console.log(BITCH);
+//     // const data1 = await test.generateIsochrones(BITCH);
 
-    const FUCK: TimeMapRequestDepartureSearch = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
+//     // const FUCK: TimeMapRequestDepartureSearch = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
 
-    const SHIT: TimeMapRequestDepartureSearch = {
-        id: '2',
-        departure_time: new Date().toISOString(),
-        travel_time: 30 * 60,
-        coords: { lat: -34.00, lng: 151.00 },
-        transportation: { type: "public_transport" },
-        properties: ['is_only_walking'],
-    };
+//     // const SHIT: TimeMapRequestDepartureSearch = {
+//     //     id: '2',
+//     //     departure_time: new Date().toISOString(),
+//     //     travel_time: 30 * 60,
+//     //     coords: { lat: -34.00, lng: 151.00 },
+//     //     transportation: { type: "public_transport" },
+//     //     properties: ['is_only_walking'],
+//     // };
 
-    let addresses : TimeMapRequestDepartureSearch[] = [];
-    addresses.push(FUCK);
-    addresses.push(SHIT);
+//     // let addresses : TimeMapRequestDepartureSearch[] = [];
+//     // addresses.push(FUCK);
+//     // addresses.push(SHIT);
 
-    const dataFUCK = await test.generateIntersection(addresses);
-    console.log(dataFUCK);
+//     // const dataFUCK = await test.generateIntersection(addresses);
+//     // console.log(dataFUCK);
 
 
-    console.log(data22);
-    console.log(data1);
-}
+//     // console.log(data1);
+//     const places = await test.googlePlaces(data22);
+//     console.log(places.places);
+//  }
 
-testStuff();
+// testStuff();
 
 export default new api();
