@@ -15,7 +15,7 @@ if (
     process.env["TRAVELTIME_APPLICATION_ID"] === undefined ||
     process.env["TRAVELTIME_APPLICATION_ID"] === ""
 ) {
-    console.log("NO APPLICATIONID");
+    console.log("NO APPLICATION ID");
     process.exit(1);
 }
 
@@ -169,36 +169,9 @@ class api {
 
 const test = new api();
 
-//  async function testStuff() {
-//     const data22 = await test.geocode("5 Gilmore Street, Cabramatta");
-
-//     // const BITCH = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
-//     // console.log(BITCH);
-//     // const data1 = await test.generateIsochrones(BITCH);
-
-//     // const FUCK: TimeMapRequestDepartureSearch = await test.generateTimeMapRequestDepartureSearch("5 Gilmore Street, Cabramatta", "public_transport", 30, "1")
-
-//     // const SHIT: TimeMapRequestDepartureSearch = {
-//     //     id: '2',
-//     //     departure_time: new Date().toISOString(),
-//     //     travel_time: 30 * 60,
-//     //     coords: { lat: -34.00, lng: 151.00 },
-//     //     transportation: { type: "public_transport" },
-//     //     properties: ['is_only_walking'],
-//     // };
-
-//     // let addresses : TimeMapRequestDepartureSearch[] = [];
-//     // addresses.push(FUCK);
-//     // addresses.push(SHIT);
-
-//     // const dataFUCK = await test.generateIntersection(addresses);
-//     // console.log(dataFUCK);
-
-
-//     // console.log(data1);
-//     const places = await test.googlePlaces(data22);
-//     console.log(places.places);
-//  }
+//     async function testStuff() {
+//         
+//     }
 
 // testStuff();
 
