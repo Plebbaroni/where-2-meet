@@ -1,11 +1,17 @@
-import { ChevronDoubleRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleRightIcon, MapPinIcon, ArrowTurnDownRightIcon } from "@heroicons/react/24/outline";
 import classes from './Sidebar.module.css';
 //import { AddressForm } from "../AddressForm/AddressForm";
 import { useState, useEffect } from "react";
-
 import { AddressForm } from "../AddressForm/AddressForm";
 import Button, { ButtonIcons } from "../Button/Button";
+import InputBlock from "../InputBlock/InputBlock";
 
+type InputType = {
+	location:string;
+	transportationType:string;
+	maxTravelTime: number;
+	idx: number;
+}
 
 export type SidebarProps = {
 	profileImage: string;
@@ -17,20 +23,21 @@ function Sidebar(props?: SidebarProps) {
     // useState<google.maps.places.PlaceResult | null>(null);
 	// const [isClicked, setIsClicked] = useState(false);
 	// const [locations, setLocations] = useState<LocationData | {}>({});
-	// const [input, setInput] = useState("");
+	const [inputForms, setInputForms] = useState<InputType[]>([{location: '', transportationType: '', maxTravelTime: 0, idx:1}]);
+	const [zidx, setZidx] = useState(100); 
 	// const fillBar = (result:string) => {
 	// 	setInput(result);
 	// 	setLocations([]);
 	// 	setIsClicked(true)
 	// }
 
-	if (
-		import.meta.env.VITE_GOOGLE_MAPS_KEY === undefined ||
-		import.meta.env.VITE_GOOGLE_MAPS_KEY === ""
-	  ) {
-		console.log("NO GOOGLE KEY");
-		process.exit(1);
-	  }
+	// if (
+	// 	import.meta.env.VITE_GOOGLE_MAPS_KEY === undefined ||
+	// 	import.meta.env.VITE_GOOGLE_MAPS_KEY === ""
+	//   ) {
+	// 	console.log("NO GOOGLE KEY");
+	// 	process.exit(1);
+	//   }
 
 	//const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
@@ -58,6 +65,23 @@ function Sidebar(props?: SidebarProps) {
 	// 	getLocations(input);
 	// },[input, getLocations])
 
+	// const handleInputChange = (
+	// 	e: React.ChangeEvent<HTMLInputElement>,
+	// 	index: number,
+	// 	field: keyof InputType
+	//   ) => {
+	// 	const updateForms = [...inputForms];
+	// 	if (!updateForms) {
+	// 		return;
+	// 	}
+	// 	updateForms[index][field] = e.target.value;
+	// 	setInputForms(updateForms);
+	//   };
+
+	const addInputBlock = () => {
+		setInputForms([...inputForms, { location: '', transportationType: '', maxTravelTime: 0 , id:inputForms.length+1}]);
+	};
+
   	return (
 		<aside className={classes.container}>
 			<div className={classes.header}>
@@ -68,49 +92,24 @@ function Sidebar(props?: SidebarProps) {
 					type="button"
 				></Button>
 			</div>
-			<div className="inputs">
-				
-				<p>
-					transport type
-				</p>
-				<p>
-					time taken
-				</p>
-				<p>
-					addresses
-				</p>
-				<p>
-					button
-				</p>
-				<div className={classes.inputBar}>
-					<input type="text" name="" id="" className={classes.inputText} value={input} onChange={(e) => setInput(e.target.value)}  onKeyDown={(e) => {
-						}} placeholder="Your Location"/>
-						{/* {locations.length > 0 && !isClicked && (
-							<ul className={classes.resultsList}>
-							{locations.suggestions.map((index) => (
-								<li key={index} className={classes.resultItem} onClick={() => fillBar(index.placePrediction.text)}>
-								{index.placePrediction.text}
-								</li>
-							))}
-							</ul>
-						)} */}
-				</div>
-				<div className={classes.plus}>
-					<Button
-						icon={ButtonIcons.Plus}
-						type="button"
-					></Button>
-				</div>
-				
-				{/* <AddressForm
-					// placeholder="	High Street, Sydney, New South Wales, 2052, Australia"
-					// name="address"
-					// onChange={setAddress}
-					// error={false}
-					onPlaceSelect={setSelectedPlace}
-				></AddressForm> */}
+			<div className={classes.inputBlocks}>
+			<form className={classes.form}>
+				{inputForms.map((form) => (
+						<InputBlock/>
+				))}
+			</form>
 			</div>
-
+			<div className={classes.plus}>
+				<Button
+					icon={ButtonIcons.Plus}
+					type="button"
+					onClick={addInputBlock}
+				></Button>
+				<Button
+					icon={ButtonIcons.EnterRight}
+					type="submit"
+				></Button>
+			</div>
 		</aside>
 	);
 }

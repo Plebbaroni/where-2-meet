@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
-
+import InputBlock from './InputBlock/InputBlock'
 function App() {
   const [count, setCount] = useState(0)
 
