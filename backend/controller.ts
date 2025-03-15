@@ -42,6 +42,17 @@ class controller {
             return;
         }
     }
+
+    async getPlaces(req:Request, res:Response) {
+        try {
+            const coordinates:number[] = req.body.coordinates;
+            const data = await api.googlePlaces(coordinates);
+            res.status(200).send(data.places);
+        } catch (e) {
+            res.status(400).send({error: e});
+            return;
+        }
+    }
 }
 
 export default new controller();
