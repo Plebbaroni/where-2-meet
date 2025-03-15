@@ -3,12 +3,14 @@ import classes from './Button.module.css';
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
+  ArrowTurnDownRightIcon
 } from '@heroicons/react/24/outline';
 
 export enum ButtonIcons {
     LeftChevrons = "leftchevrons",
     RightChevrons = "rightchevrons",
     Plus = "plus",
+    EnterRight = "enterright"
 }
 
 type ButtonProps = {
@@ -36,6 +38,11 @@ function Button(props: ButtonProps) {
       {props.icon === ButtonIcons.Plus && (
         <PlusIcon className={`${classes.icon} ${classes.plus}`}></PlusIcon>
       )}
+      {
+        props.icon === ButtonIcons.EnterRight && (
+          <ArrowTurnDownRightIcon className={`${classes.icon} ${classes.plus}`}></ArrowTurnDownRightIcon>
+        )
+      }
     </button>
   );
 }

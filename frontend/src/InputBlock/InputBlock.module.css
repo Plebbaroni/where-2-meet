@@ -1,0 +1,46 @@
+.wrapper {
+    height: 100px;
+    margin-bottom: 2px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputBarDiv{
+    width: 100%;
+}
+
+.inputBar {
+    padding: 0;
+    width: 90%;
+    size:fit-content;
+}
+
+.inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.travelWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly
+}
+
+.travelTimeMsg {
+    color: black;
+}
+
+.travelTime{
+    padding: 0;
+    width: 25%;
+}
+p {
+    margin: 0;
+}

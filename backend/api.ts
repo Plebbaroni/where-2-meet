@@ -42,6 +42,31 @@ const travelTimeClient = new TravelTimeClient({
 
 const google_key:string = process.env["GOOGLE_MAPS_KEY"];
 class api {
+
+    async autocomplete(input:string) {
+        try {
+            const body = {
+                "input": input,
+            }
+
+            const response = await fetch("https://places.googleapis.com/v1/places:autocomplete", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Goog-Api-Key": google_key,
+                    "X-Goog-FieldMask": "suggestions.placePrediction.text"
+                },
+                body: JSON.stringify(body)
+            });
+            if (!response.ok) {
+                console.error(`Error: ${response.status} - ${await response.text()}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            throw e;
+        }
+    }
     //input: address
     //ouput: longitude and latitute of first result
     async geocode(address : string) {
@@ -161,6 +186,7 @@ class api {
             const data: GooglePlaces = await response.json();
             return data;
         } catch (e) {
+            console.error(e);
             throw e;
         }
     }
