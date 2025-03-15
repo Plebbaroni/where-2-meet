@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@types/polylabel": "^1.1.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
