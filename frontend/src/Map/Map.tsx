@@ -1,21 +1,21 @@
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
-import * as dotenv from 'dotenv'
+// import * as dotenv from 'dotenv'
 
-dotenv.config()
+// dotenv.config()
 
 function MapElement() {
-  // if (
-  //   process.env["GOOGLE_MAPS_KEY"] === undefined ||
-  //   process.env["GOOGLE_MAPS_KEY"] === ""
-  // ) {
-  //   console.log("NO GOOGLE KEY");
-  //   process.exit(1);
-  // }
+  if (
+    import.meta.env.VITE_GOOGLE_MAPS_KEY === undefined ||
+    import.meta.env.VITE_GOOGLE_MAPS_KEY === ""
+  ) {
+    console.log("NO GOOGLE KEY");
+    process.exit(1);
+  }
 
-  // const key = process.env.GOOGLE_MAPS_KEY;
+  const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
   return (
-    <APIProvider apiKey={import.meta.env.GOOGLE_MAPS_KEY}>
+    <APIProvider apiKey={key}>
       <Map
         style={{width: '100vw', height: '100vh'}}
         defaultCenter={{lat: -33.8811, lng: 151.1087}}
