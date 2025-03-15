@@ -1,16 +1,41 @@
 .container {
+    box-sizing: border-box;
     height: 100%;
     width: 20%;
     min-width: 300px;
-    background-color: red;
+    background-color: rgb(211, 211, 211);
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
     overflow-x: hidden;
-    padding: 20px;
+    padding: 10px;
 }
 
 .icon {
-    width: 48px;
+    width: 42px;
+    margin: 8px;
+}
+
+.header {
+    display: flex;
+    color: black;
+    height: 72px;
+    align-items: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.inputs {
+    display: flex;
+    color: black;
+}
+
+.plus {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
