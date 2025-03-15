@@ -61,8 +61,9 @@ class controller {
             const inputList = req.body.input;
             const timeMapArray:TimeMapRequestDepartureSearch[] = [];
             let i = 0;
+            console.log(inputList)
             for (const input of inputList) {
-                const timeMapRequestDepartureThing =  await api.generateTimeMapRequestDepartureSearch(input.address, input.modeOfTransport, input.maxTravelTime, i.toString());
+                const timeMapRequestDepartureThing =  await api.generateTimeMapRequestDepartureSearch(input.location, input.transportationType, input.maxTravelTime, i.toString());
                 timeMapArray.push(timeMapRequestDepartureThing);
                 i++;
             }
