@@ -9,5 +9,5 @@ const router = express.Router();
 router.get("/hello", controller.hello);
 router.get("/intersections", controller.getIntersectionsAndPlaces);
 router.post("/places", controller.getPlaces);
-
+router.post("/autocomplete", controller.autocomplete);
 export default router;
