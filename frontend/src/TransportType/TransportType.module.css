@@ -1,0 +1,25 @@
+.container {
+    width: 50%;
+}
+.dropdownToggle {
+
+    padding: 0;
+    margin: 0;
+}
+
+.dropdownOption {
+    color: black;
+    background-color: rgb(211, 211, 211);
+    border-bottom: 1px solid black;
+    z-index: 1000;
+}
+
+.selectedDropdown {
+    color: black;
+    background-color: rgb(211, 211, 211);
+    border-bottom: 1px solid black;
+}
+
+p {
+    font-size: 16px;
+}

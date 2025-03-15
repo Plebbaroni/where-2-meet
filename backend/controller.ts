@@ -92,7 +92,20 @@ class controller {
             const coordinates:number[] = req.body.coordinates;
             const data = await api.googlePlaces(coordinates);
             res.status(200).send(data.places);
+            return;
         } catch (e) {
+            res.status(400).send({error: e});
+            return;
+        }
+    }
+
+    async autocomplete(req:Request, res:Response) {
+        try {
+            const data = await api.autocomplete(req.body.input);
+            console.log(data)
+            res.status(200).send(data);
+        } catch (e) {
+            console.error(e);
             res.status(400).send({error: e});
             return;
         }
