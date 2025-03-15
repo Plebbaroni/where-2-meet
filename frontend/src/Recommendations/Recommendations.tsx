@@ -1,12 +1,9 @@
-import { ChevronDoubleRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import classes from './Recommendations.module.css';
-import { AddressForm } from "../AddressForm/AddressForm";
-import { useState } from "react";
 import Button, { ButtonIcons } from "../Button/Button";
 import { Place } from "../Map/Map";
 
 type RecommendationsProps = {
-  points: Place[];
+  places: Place[];
 }
 
 function Recommendations(props: RecommendationsProps) {
@@ -20,7 +17,7 @@ function Recommendations(props: RecommendationsProps) {
 				<p className={classes.title}>Hangouts</p>
 			</div>
 			<ul className="hangouts">
-				{props.points.map(x => <li className={classes.rec}
+				{props.places.map(x => <li className={classes.rec}
           >{x.displayName.text}
         </li>)}
 			</ul>
