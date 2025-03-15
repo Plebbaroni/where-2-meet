@@ -20,7 +20,7 @@ function Sidebar() {
 	// const [isClicked, setIsClicked] = useState(false);
 	// const [locations, setLocations] = useState<LocationData | {}>({});
 	const [inputForms, setInputForms] = useState<InputType[]>([{location: '', transportationType: '', maxTravelTime: 0, idx:1}]);
-	const [zidx, setZidx] = useState(100); 
+	const [zidx, setZidx] = useState(100);
 	// const fillBar = (result:string) => {
 	// 	setInput(result);
 	// 	setLocations([]);
@@ -91,7 +91,7 @@ function Sidebar() {
 			<div className={classes.inputBlocks}>
 			<form className={classes.form}>
 				{inputForms.map((form) => (
-						<InputBlock/>
+					<InputBlock/>
 				))}
 			</form>
 			</div>
