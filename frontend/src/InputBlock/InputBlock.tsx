@@ -13,7 +13,7 @@ function InputBlock() {
 
   return (
     <div className={classes.wrapper}>
-                <input className={classes.inputBar} type="text" name="" id="" c value={locationInput} onChange={(e) => setLocationInput(e.target.value)}  onKeyDown={(e) => {
+                <input className={classes.inputBar} type="text" name="" id="" value={locationInput} onChange={(e) => setLocationInput(e.target.value)}  onKeyDown={(e) => {
                     }} placeholder="Your Location"/>
             <div className={classes.travelWrapper}>
                 <p className={classes.travelTimeMsg}>Travel Time:</p>
