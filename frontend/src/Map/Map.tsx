@@ -1,8 +1,4 @@
 import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
-// import * as dotenv from 'dotenv'
-
-// dotenv.config()
-
 import data from '../../../testData/places.ts';
 import {Isochrone, Polygon} from '../Polygon/Polygon.tsx'
 
@@ -34,11 +30,12 @@ function MapElement(props: MapProps) {
       >
         {props.places && <Markers points={data.places}/>}
         {props.isochrones && props.isochrones.map(x => {
-          return x.shapes.map(y => {
+          return x.shapes.map((y,i) => {
             return <Polygon
               paths={y.shell}
               strokeColor={'black'}
               fillColor={'black'}
+              key={i}
             >
 
             </Polygon>
