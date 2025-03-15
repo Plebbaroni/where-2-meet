@@ -32,7 +32,7 @@ function MapElement(props: MapProps) {
         disableDefaultUI={true}
         mapId={'164b9a393796fa80'}
       >
-        {props.places && <Markers points={data.places}/>}
+        {props.places && <Markers points={props.places}/>}
         {props.isochrones && props.isochrones.map(x => {
           return x.shapes.map(y => {
             return <Polygon
