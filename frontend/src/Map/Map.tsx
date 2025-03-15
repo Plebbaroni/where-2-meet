@@ -24,7 +24,6 @@ function MapElement(props: MapProps) {
     "blue",
     "fuchsia",
     "navy",
-    "black",
   ];
 
   const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
@@ -40,14 +39,19 @@ function MapElement(props: MapProps) {
         mapId={'164b9a393796fa80'}
       >
         {props.places && <Markers points={props.places}/>}
-        {props.isochrones && props.isochrones.map(x => {
-          return x.shapes.map((y,i) => {
-            const colour = colours[i % colours.length];
+        {props.isochrones && props.isochrones.map((x, j) => {
+          let colour = colours[j % colours.length];
+          const re = new RegExp("intersection");
+          if (re.test(x.search_id)) {
+            colour = "black"
+          }
+          return x.shapes.map((y, i) => {
             return <Polygon
               paths={y.shell}
               strokeColor={`${colour}`}
               fillColor={`${colour}`}
               key={i}
+              strokeWeight={colour === "black" ? 2 : 1}
             >
 
             </Polygon>
