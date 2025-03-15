@@ -12,7 +12,9 @@ function App() {
   const [inputForms, setInputForms] = useState([
     { location: "", transportationType: "public_transport", maxTravelTime: 0, idx: 0 },
   ]);
-  const [mapData, setMapData] = useState({});
+  const [mapData, setMapData] = useState({
+    places: []
+  });
 
   const addInputBlock = () => {
     setInputForms([
@@ -46,7 +48,7 @@ function App() {
       }
 
       const data = await response.json();
-      console.log("Success:", data);
+      setMapData(data);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -63,7 +65,7 @@ function App() {
         updateInputBlock={updateInputBlock}
         onSubmit={handleFormSubmit}
       />
-      <Recommendations points={data.places} />
+      <Recommendations points={mapData.places} />
       <MapElement />
     </>
   );
