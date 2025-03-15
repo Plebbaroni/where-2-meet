@@ -1,0 +1,41 @@
+.button {
+  border: 0px;
+  border-radius: 8px;
+  /* width: 464px;
+  height: 464px; */
+  padding: 0px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  color: black;
+  background: none;
+  transition: background 0.2s linear, color 0.2s linear, box-shadow 0.2s linear,
+    outline-color 0.2s linear;
+  border-radius: 50%;
+}
+
+.button:hover {
+  background-color: #aaaaaa;
+  cursor: pointer;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+}
+
+.plusButton {
+  background-color: rgb(41, 64, 139);
+  color: white;
+  height: 40px;
+  width: 40px;
+}
+
+.plusButton:hover {
+  background-color: #a3a8ec;
+  cursor: pointer;
+  color: black;
+}

@@ -1,8 +1,11 @@
-import { MapPinIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import classes from './Sidebar.module.css';
 //import { AddressForm } from "../AddressForm/AddressForm";
 import { useState, useEffect } from "react";
-import { debounce } from "lodash";
+
+import { AddressForm } from "../AddressForm/AddressForm";
+import Button, { ButtonIcons } from "../Button/Button";
+
 
 export type SidebarProps = {
 	profileImage: string;
@@ -57,13 +60,16 @@ function Sidebar(props?: SidebarProps) {
 
   	return (
 		<aside className={classes.container}>
-			<div className="">
+			<div className={classes.header}>
 				<MapPinIcon className={classes.icon}></MapPinIcon>
+				<p className={classes.title}>Where to Meet</p>
+				<Button
+					icon={ButtonIcons.OpenPanel}
+					type="button"
+				></Button>
 			</div>
-			<div className="">
-				<p>
-					collapse
-				</p>
+			<div className="inputs">
+				
 				<p>
 					transport type
 				</p>
@@ -89,6 +95,20 @@ function Sidebar(props?: SidebarProps) {
 							</ul>
 						)} */}
 				</div>
+				<div className={classes.plus}>
+					<Button
+						icon={ButtonIcons.Plus}
+						type="button"
+					></Button>
+				</div>
+				
+				{/* <AddressForm
+					// placeholder="	High Street, Sydney, New South Wales, 2052, Australia"
+					// name="address"
+					// onChange={setAddress}
+					// error={false}
+					onPlaceSelect={setSelectedPlace}
+				></AddressForm> */}
 			</div>
 
 		</aside>
