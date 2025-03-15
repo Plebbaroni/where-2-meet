@@ -4,8 +4,14 @@ import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
 // dotenv.config()
 
 import data from '../../../testData/places.ts';
+import {Isochrone, Polygon} from '../Polygon/Polygon.tsx'
 
-function MapElement() {
+type MapProps = {
+  places?: Place[];
+  isochrones?: Isochrone[];
+}
+
+function MapElement(props: MapProps) {
   if (
     import.meta.env.VITE_GOOGLE_MAPS_KEY === undefined ||
     import.meta.env.VITE_GOOGLE_MAPS_KEY === ""
@@ -26,7 +32,18 @@ function MapElement() {
         disableDefaultUI={true}
         mapId={'164b9a393796fa80'}
       >
-        <Markers points={data.places}/>
+        {props.places && <Markers points={data.places}/>}
+        {props.isochrones && props.isochrones.map(x => {
+          return x.shapes.map(y => {
+            return <Polygon
+              paths={y.shell}
+              strokeColor={'black'}
+              fillColor={'black'}
+            >
+
+            </Polygon>
+          })
+        })}
       </Map>
     </APIProvider>
   )
@@ -52,7 +69,9 @@ export interface GooglePlaces {
   places: Place[];
 }
 
-type MarkersProps = { points: Place[] };
+type MarkersProps = { 
+  points: Place[] 
+};
 
 const Markers = ({ points }: MarkersProps) => {
   return <>
@@ -60,7 +79,7 @@ const Markers = ({ points }: MarkersProps) => {
       position={ { lat: x.location.latitude, lng: x.location.longitude } }
       key={x.displayName.text}
     >
-
+    
     </AdvancedMarker>)}
   </>;
 }

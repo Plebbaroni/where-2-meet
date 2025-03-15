@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
-import InputBlock from './InputBlock/InputBlock'
 import Recommendations from './Recommendations/Recommendations'
 import data from '../../testData/places.ts';
+import isochrone2 from '../../testData/isochrone2.ts';
 
 function App() {
   const [inputForms, setInputForms] = useState([
@@ -57,9 +55,10 @@ function App() {
   useEffect(() => {
     console.log(inputForms);
   }, [inputForms])
+
   return (
     <>
-      <Sidebar
+    <Sidebar
         inputForms={inputForms}
         addInputBlock={addInputBlock}
         updateInputBlock={updateInputBlock}
@@ -67,6 +66,10 @@ function App() {
       />
       <Recommendations points={mapData.places} />
       <MapElement />
+      <MapElement
+        places={data.places}
+        isochrones={isochrone2.results}
+      ></MapElement>
     </>
   );
 }
