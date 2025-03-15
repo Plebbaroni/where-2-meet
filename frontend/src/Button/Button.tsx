@@ -6,8 +6,8 @@ import {
 } from '@heroicons/react/24/outline';
 
 export enum ButtonIcons {
-    ClosePanel = "closepanel",
-    OpenPanel = "openpanel",
+    LeftChevrons = "leftchevrons",
+    RightChevrons = "rightchevrons",
     Plus = "plus",
 }
 
@@ -27,10 +27,10 @@ function Button(props: ButtonProps) {
       type={props.type}
       onClick={props.onClick}
     >
-      {props.icon === ButtonIcons.OpenPanel && (
+      {props.icon === ButtonIcons.RightChevrons && (
         <ChevronDoubleRightIcon className={classes.icon}></ChevronDoubleRightIcon>
       )}
-      {props.icon === ButtonIcons.ClosePanel && (
+      {props.icon === ButtonIcons.LeftChevrons && (
         <ChevronDoubleLeftIcon className={classes.icon}></ChevronDoubleLeftIcon>
       )}
       {props.icon === ButtonIcons.Plus && (

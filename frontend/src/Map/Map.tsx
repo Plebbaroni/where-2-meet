@@ -42,7 +42,7 @@ interface DisplayName {
   languageCode: string;
 };
 
-interface Place {
+export interface Place {
   location: Location;
   displayName: DisplayName;
   primaryType: String;

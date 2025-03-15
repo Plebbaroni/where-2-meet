@@ -4,13 +4,18 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
+import Recommendations from './Recommendations/Recommendations'
+import data from '../../testData/places.ts';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <Sidebar profileImage={reactLogo}></Sidebar>
+      <Sidebar></Sidebar>
+      <Recommendations
+        points={data.places}
+      ></Recommendations>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
