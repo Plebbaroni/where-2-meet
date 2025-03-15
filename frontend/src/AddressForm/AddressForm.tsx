@@ -12,7 +12,7 @@ import {
   AdvancedMarkerRef
 } from '@vis.gl/react-google-maps';
 
-const API_KEY: string = "AIzaSyA8IYmI36VkWw0aK1iuSb_qj_R56BqbJBg";
+const API_KEY: string = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 ;
 
 // type TextInputProp = {
