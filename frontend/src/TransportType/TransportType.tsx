@@ -7,41 +7,30 @@ function TransportType(props?: TransportTypeProps) {
     const [open, setOpen] = useState(false);
     const [type, setType] = useState("public_transport");
 
+    const methods = ["public_transport", "driving", "walking", "cycling"];
+
+    function methodDisplayString(method: string) {
+      if (method === "public_transport") {
+        return "Public Transport";
+      }
+      else {
+        return String(method).charAt(0).toUpperCase() + String(method).slice(1);
+      }
+    }
 
     return (
       <div onClick={() => setOpen(!open)} className={classes.dropdownToggle}>
-        {open &&
-          <div className={classes.dropdownSelection}>
-            <div onClick={() => setType("public_transport")} className={type == "public_transport" ? classes.selectedDropdown : classes.dropdownOption}>
-              <p>Public Transport</p>
-            </div>
-            <div onClick={() => setType("driving")} className={type == "driving" ? classes.selectedDropdown : classes.dropdownOption}>
-              <p>Driving</p>
-            </div>
-            <div onClick={() => setType("walking")} className={type == "walking" ? classes.selectedDropdown : classes.dropdownOption}>
-              <p>Walking</p>
-            </div>
-            <div onClick={() => setType("cycling")} className={type == "cycling" ? classes.selectedDropdown : classes.dropdownOption}>
-              <p>Cycling</p>
-            </div>
-          </div>
+        {open && methods.map(method => (
+            <div onClick={() => setType(method)} className={type == method ? classes.selectedDropdown : classes.dropdownOption}>
+              {methodDisplayString(method)}
+            </div>))
         }
 
-        {!open && 
-          <div className={classes.dropdownSelection}>
-            {type == "cycling" && <div className={classes.selectedDropdown}>
-              Cycling
-            </div>}
-            {type == "driving" && <div className={classes.selectedDropdown}>
-              Driving
-            </div>}
-            {type == "public_transport" && <div className={classes.selectedDropdown}>
-              Public Transport
-            </div>}
-            {type == "walking" && <div className={classes.selectedDropdown}>
-              Walking
-            </div>}
-          </div>
+        {!open && methods.map(method => (
+          type == method && 
+          <div className={classes.selectedDropdown}>
+            {methodDisplayString(method)}
+          </div>))
         }
 
       </div>
@@ -53,7 +42,6 @@ function TransportType(props?: TransportTypeProps) {
         <div className={classes.dropdown}>
             {toggleDropdown()}
         </div>
-
     </div>
   );
 
