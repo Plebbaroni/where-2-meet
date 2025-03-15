@@ -1,8 +1,6 @@
-import { ChevronDoubleRightIcon, MapPinIcon, ArrowTurnDownRightIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import classes from './Sidebar.module.css';
 //import { AddressForm } from "../AddressForm/AddressForm";
-import { useState, useEffect } from "react";
-import { AddressForm } from "../AddressForm/AddressForm";
 import Button, { ButtonIcons } from "../Button/Button";
 import InputBlock from "../InputBlock/InputBlock";
 

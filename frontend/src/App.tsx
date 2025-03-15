@@ -3,8 +3,6 @@ import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
 import Recommendations from './Recommendations/Recommendations'
-import data from '../../testData/places.ts';
-import isochrone2 from '../../testData/isochrone2.ts';
 
 function App() {
   const [inputForms, setInputForms] = useState([
@@ -22,7 +20,7 @@ function App() {
     ]);
   };
 
-  const updateInputBlock = (index, field, value) => {
+  const updateInputBlock = (index: number, field: string, value: unknown) => {
     setInputForms((prevForms) =>
       prevForms.map((form, i) =>
         i === index ? { ...form, [field]: value } : form
@@ -30,7 +28,7 @@ function App() {
     );
   };
 
-  const handleFormSubmit = async (inputForms) => {
+  const handleFormSubmit = async (inputForms: unknown) => {
     console.log("Form Data Submitted:", inputForms);
 
     try {
