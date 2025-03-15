@@ -13,11 +13,7 @@ type InputType = {
 	idx: number;
 }
 
-export type SidebarProps = {
-	profileImage: string;
-};
-
-function Sidebar(props?: SidebarProps) {
+function Sidebar() {
 	// const [address, setAddress] = useState("");
 	// const [selectedPlace, setSelectedPlace] =
     // useState<google.maps.places.PlaceResult | null>(null);
@@ -88,7 +84,7 @@ function Sidebar(props?: SidebarProps) {
 				<MapPinIcon className={classes.icon}></MapPinIcon>
 				<p className={classes.title}>Where to Meet</p>
 				<Button
-					icon={ButtonIcons.OpenPanel}
+					icon={ButtonIcons.LeftChevrons}
 					type="button"
 				></Button>
 			</div>

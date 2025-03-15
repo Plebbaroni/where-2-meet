@@ -183,7 +183,7 @@ class api {
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} - ${await response.text()}`);
             }
-            const data = await response.json();
+            const data: GooglePlaces = await response.json();
             return data;
         } catch (e) {
             console.error(e);
@@ -192,6 +192,25 @@ class api {
     }
 }
 
+interface Location {
+    latitude: Number;
+    longitude: Number;
+};
+
+interface DisplayName {
+    text: String;
+    languageCode: String;
+};
+
+interface Place {
+    location: Location;
+    displayName: DisplayName;
+    primaryType: String;
+};
+
+export interface GooglePlaces {
+    places: Place[];
+}
 
 const test = new api();
 
