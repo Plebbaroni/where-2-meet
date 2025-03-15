@@ -3,8 +3,6 @@ import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
 import Recommendations from './Recommendations/Recommendations'
-import data from '../../testData/places.ts';
-import isochrone2 from '../../testData/isochrone2.ts';
 
 function App() {
   const [inputForms, setInputForms] = useState([
