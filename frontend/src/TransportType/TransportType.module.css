@@ -1,17 +1,18 @@
 .container {
     width: 50%;
+    z-index: 1;
 }
-.dropdownToggle {
 
+.dropdownToggle {
     padding: 0;
     margin: 0;
+
 }
 
 .dropdownOption {
     color: black;
     background-color: rgb(211, 211, 211);
     border-bottom: 1px solid black;
-    z-index: 1000;
 }
 
 .selectedDropdown {
