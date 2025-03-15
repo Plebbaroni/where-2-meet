@@ -111,7 +111,7 @@ class api {
 
         try {
             const data = await travelTimeClient.timeMap({departure_searches: addresses, intersections: [intersection],});
-            return data.results[0].shapes;
+            return data.results;
         } catch (e) {
             throw (e);
         }
