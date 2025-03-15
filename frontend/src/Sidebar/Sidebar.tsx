@@ -13,14 +13,13 @@ type InputType = {
 	idx: number;
 }
 
-function Sidebar() {
+function Sidebar({ inputForms, addInputBlock, updateInputBlock, onSubmit }) {
 	// const [address, setAddress] = useState("");
 	// const [selectedPlace, setSelectedPlace] =
     // useState<google.maps.places.PlaceResult | null>(null);
 	// const [isClicked, setIsClicked] = useState(false);
 	// const [locations, setLocations] = useState<LocationData | {}>({});
-	const [inputForms, setInputForms] = useState<InputType[]>([{location: '', transportationType: '', maxTravelTime: 0, idx:1}]);
-	const [zidx, setZidx] = useState(100);
+	//const [inputForms, setInputForms] = useState<InputType[]>([{location: '', transportationType: 'public_transport', maxTravelTime: 0, idx:0}]);
 	// const fillBar = (result:string) => {
 	// 	setInput(result);
 	// 	setLocations([]);
@@ -73,10 +72,11 @@ function Sidebar() {
 	// 	updateForms[index][field] = e.target.value;
 	// 	setInputForms(updateForms);
 	//   };
-
-	const addInputBlock = () => {
-		setInputForms([...inputForms, { location: '', transportationType: '', maxTravelTime: 0 , id:inputForms.length+1}]);
-	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("submitted");
+		onSubmit(inputForms); 
+	  };
 
   	return (
 		<aside className={classes.container}>
@@ -89,22 +89,30 @@ function Sidebar() {
 				></Button>
 			</div>
 			<div className={classes.inputBlocks}>
-			<form className={classes.form}>
+			<form className={classes.form} onSubmit={handleSubmit}>
 				{inputForms.map((form) => (
-					<InputBlock/>
+					<InputBlock
+					key={form.idx}
+					idx={form.idx}
+					location={form.location}
+					maxTravelTime={form.maxTravelTime}
+					transportType={form.transportationType}
+					onUpdate={updateInputBlock}
+					/>
 				))}
-			</form>
+
+				<div className={classes.plus}>
+					<Button
+						icon={ButtonIcons.Plus}
+						type="button"
+						onClick={addInputBlock}
+					></Button>
+					<Button
+						icon={ButtonIcons.EnterRight}
+						type="submit"
+					></Button>
 			</div>
-			<div className={classes.plus}>
-				<Button
-					icon={ButtonIcons.Plus}
-					type="button"
-					onClick={addInputBlock}
-				></Button>
-				<Button
-					icon={ButtonIcons.EnterRight}
-					type="submit"
-				></Button>
+			</form>
 			</div>
 		</aside>
 	);

@@ -2,10 +2,9 @@ import pyramidIcon from "../assets/react.svg";
 import classes from './TransportType.module.css';
 import {useState} from 'react';
 
-function TransportType(props?: TransportTypeProps) {
+function TransportType({type, setType}) {
   function toggleDropdown() {
     const [open, setOpen] = useState(false);
-    const [type, setType] = useState("public_transport");
 
 
     return (
