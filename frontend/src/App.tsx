@@ -11,7 +11,8 @@ function App() {
     { location: "", transportationType: "public_transport", maxTravelTime: 0, idx: 0 },
   ]);
   const [mapData, setMapData] = useState({
-    places: []
+    places: [],
+    intersection: []
   });
 
   const addInputBlock = () => {
@@ -64,11 +65,10 @@ function App() {
         updateInputBlock={updateInputBlock}
         onSubmit={handleFormSubmit}
       />
-      <Recommendations points={mapData.places} />
-      <MapElement />
+      <Recommendations places={mapData.places} />
       <MapElement
-        places={data.places}
-        isochrones={isochrone2.results}
+        places={mapData.places}
+        isochrones={mapData.intersection}
       ></MapElement>
     </>
   );
