@@ -1,11 +1,12 @@
 import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
-// import * as dotenv from 'dotenv'
+import {Isochrone, Polygon} from '../Polygon/Polygon.tsx'
 
-// dotenv.config()
+type MapProps = {
+  places?: Place[];
+  isochrones?: Isochrone[];
+}
 
-import data from '../../../testData/places.ts';
-
-function MapElement() {
+function MapElement(props: MapProps) {
   if (
     import.meta.env.VITE_GOOGLE_MAPS_KEY === undefined ||
     import.meta.env.VITE_GOOGLE_MAPS_KEY === ""
@@ -13,6 +14,17 @@ function MapElement() {
     console.log("NO GOOGLE KEY");
     process.exit(1);
   }
+
+  const colours = [
+    "red",
+    "yellow",
+    "lime",
+    "green",
+    "aqua",
+    "blue",
+    "fuchsia",
+    "navy",
+  ];
 
   const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
@@ -26,7 +38,25 @@ function MapElement() {
         disableDefaultUI={true}
         mapId={'164b9a393796fa80'}
       >
-        <Markers points={data.places}/>
+        {props.places && <Markers points={props.places}/>}
+        {props.isochrones && props.isochrones.map((x, j) => {
+          let colour = colours[j % colours.length];
+          const re = new RegExp("intersection");
+          if (re.test(x.search_id)) {
+            colour = "black"
+          }
+          return x.shapes.map((y, i) => {
+            return <Polygon
+              paths={y.shell}
+              strokeColor={`${colour}`}
+              fillColor={`${colour}`}
+              key={i}
+              strokeWeight={colour === "black" ? 2 : 1}
+            >
+
+            </Polygon>
+          })
+        })}
       </Map>
     </APIProvider>
   )
@@ -52,7 +82,9 @@ export interface GooglePlaces {
   places: Place[];
 }
 
-type MarkersProps = { points: Place[] };
+type MarkersProps = { 
+  points: Place[] 
+};
 
 const Markers = ({ points }: MarkersProps) => {
   return <>
@@ -60,7 +92,7 @@ const Markers = ({ points }: MarkersProps) => {
       position={ { lat: x.location.latitude, lng: x.location.longitude } }
       key={x.displayName.text}
     >
-
+    
     </AdvancedMarker>)}
   </>;
 }
