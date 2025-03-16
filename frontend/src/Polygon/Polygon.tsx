@@ -8,6 +8,7 @@ import {
 
 import type {Ref} from 'react';
 import {GoogleMapsContext} from '@vis.gl/react-google-maps';
+import { regionArray } from '../App';
 
 export type PolygonProps = google.maps.PolygonOptions 
   // & PolygonEventProps;
@@ -57,6 +58,8 @@ function usePolygon(props: PolygonProps) {
     };
   }, [map]);
 
+  regionArray.push(polygon);
+  polygon.setVisible(true);
   return polygon;
 }
 

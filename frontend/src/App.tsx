@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, ReactElement } from 'react'
 import './App.css'
 import Sidebar from './Sidebar/Sidebar'
 import MapElement from './Map/Map'
 import Recommendations from './Recommendations/Recommendations'
+
+
+export const regionArray: google.maps.Polygon[] = [];
 
 function App() {
   const [inputForms, setInputForms] = useState([
@@ -58,16 +61,16 @@ function App() {
   return (
     <>
     <Sidebar
-        inputForms={inputForms}
-        addInputBlock={addInputBlock}
-        updateInputBlock={updateInputBlock}
-        onSubmit={handleFormSubmit}
-      />
-      <Recommendations places={mapData.places} />
-      <MapElement
-        places={mapData.places}
-        isochrones={mapData.intersection}
-      ></MapElement>
+      inputForms={inputForms}
+      addInputBlock={addInputBlock}
+      updateInputBlock={updateInputBlock}
+      onSubmit={handleFormSubmit}
+    />
+    <Recommendations places={mapData.places} />
+    <MapElement
+      places={mapData.places}
+      isochrones={mapData.intersection}
+    ></MapElement>
     </>
   );
 }

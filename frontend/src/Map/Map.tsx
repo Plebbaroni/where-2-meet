@@ -1,10 +1,22 @@
 import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
 import {Isochrone, Polygon} from '../Polygon/Polygon.tsx'
+import { regionArray } from '../App.tsx';
 
 type MapProps = {
   places?: Place[];
   isochrones?: Isochrone[];
 }
+
+const colours = [
+  "red",
+  "yellow",
+  "lime",
+  "green",
+  "aqua",
+  "blue",
+  "fuchsia",
+  "navy",
+];
 
 function MapElement(props: MapProps) {
   if (
@@ -14,17 +26,6 @@ function MapElement(props: MapProps) {
     console.log("NO GOOGLE KEY");
     process.exit(1);
   }
-
-  const colours = [
-    "red",
-    "yellow",
-    "lime",
-    "green",
-    "aqua",
-    "blue",
-    "fuchsia",
-    "navy",
-  ];
 
   const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
@@ -39,24 +40,7 @@ function MapElement(props: MapProps) {
         mapId={'164b9a393796fa80'}
       >
         {props.places && <Markers points={props.places}/>}
-        {props.isochrones && props.isochrones.map((x, j) => {
-          let colour = colours[j % colours.length];
-          const re = new RegExp("intersection");
-          if (re.test(x.search_id)) {
-            colour = "black"
-          }
-          return x.shapes.map((y, i) => {
-            return <Polygon
-              paths={y.shell}
-              strokeColor={`${colour}`}
-              fillColor={`${colour}`}
-              key={i}
-              strokeWeight={colour === "black" ? 2 : 1}
-            >
-
-            </Polygon>
-          })
-        })}
+        {props.isochrones && <Regions places={props.isochrones}></Regions>}
       </Map>
     </APIProvider>
   )
@@ -94,6 +78,41 @@ const Markers = ({ points }: MarkersProps) => {
     >
     
     </AdvancedMarker>)}
+  </>;
+}
+
+type RegionsProps = { 
+  places: Isochrone[]; 
+};
+
+const Regions = (props: RegionsProps) => {
+  for (const region of regionArray) {
+    region.setMap(null);
+  }
+  regionArray.length = 0;
+  console.log(regionArray)
+
+  return <>
+    {
+      props.places.map((x, j) => {
+      let colour = colours[j % colours.length];
+      const re = new RegExp("intersection");
+      if (re.test(x.search_id)) {
+        colour = "black"
+      }
+      return x.shapes.map((y, i) => {
+        const polygon = <Polygon
+          paths={y.shell}
+          strokeColor={`${colour}`}
+          fillColor={`${colour}`}
+          key={i}
+          strokeWeight={colour === "black" ? 2 : 1}
+        >
+
+        </Polygon>
+        return polygon;
+      })
+    })}
   </>;
 }
 
