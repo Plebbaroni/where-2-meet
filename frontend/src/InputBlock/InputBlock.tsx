@@ -14,6 +14,7 @@ const InputBlock = ({ idx, location, maxTravelTime, transportType, onUpdate }) =
   return (
 
     <div className={classes.wrapper}>
+              <div className={classes.forceMargin}></div>
                 <input className={classes.inputBar} type="text" name="" id="" value={location} 
                 onChange={(e) => onUpdate(idx, "location", e.target.value)}  onKeyDown={(e) => {
                     }} placeholder="Your Location"/>
