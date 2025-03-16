@@ -157,7 +157,7 @@ class api {
                 "campground",
                 "museum",
             ],
-            maxResultCount: 10,
+            maxResultCount: 20,
             locationRestriction: {
                 circle: {
                     center: {
@@ -165,7 +165,7 @@ class api {
                         latitude: coordinates[1],
                         longitude: coordinates[0]
                     },
-                    radius: 500.0
+                    radius: 750.0
                 }
             }
         };

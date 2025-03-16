@@ -14,10 +14,22 @@
     width: 100%;
 }
 
+.forceMargin {
+    height: 8px;
+}
+*:focus {
+    outline: none;
+}
 .inputBar {
     padding: 0;
     width: 90%;
     size:fit-content;
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+::placeholder {
+    color: black;
 }
 
 .inputs {
@@ -40,6 +52,9 @@
 .travelTime{
     padding: 0;
     width: 25%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
 }
 p {
     margin: 0;
